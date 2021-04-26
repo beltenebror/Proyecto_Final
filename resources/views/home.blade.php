@@ -2,6 +2,32 @@
 
 @section('content')
 <div class="container ">
-    asa
+    <h1>Bienvenido</h1>
+    <p>contenido</p>
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+
+
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
+    <p>contenido</p>
+
 </div>
 @endsection

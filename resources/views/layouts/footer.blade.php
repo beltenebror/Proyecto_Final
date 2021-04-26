@@ -1,10 +1,10 @@
-<footer class="section footer bg-dark mt-4"  >
+<footer class="section footer bg-dark mt-4 py-4"  >
     <div class="container text-light">
         <div class="row row-40 wow fadeIn">
             <div class="col-md-6 col-lg-4">
             <h5 class="title">CONTACTO</h5>
-            <p>Teléfono:</p>
-            <p>Correo:</p>
+            <p>Teléfono: 123456789</p>
+            <p>Correo: cintiacintiacintia@cintia.com</p>
             <p>Redes Socia&nbsp;</p>
             <p>Redes Sociales:&nbsp;</p>
 
