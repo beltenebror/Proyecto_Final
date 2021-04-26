@@ -1,6 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-<p>a</p>
-
+<div class="container ">
+    asa
+</div>
 @endsection
