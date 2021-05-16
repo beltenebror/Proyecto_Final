@@ -13,5 +13,4 @@
 
 Route::get('/', 'IndexController@index')->name('home');
 
-
 Auth::routes();

@@ -1,33 +1,23 @@
-@extends('layouts.base')
+@extends('layouts.BASE')
 
 @section('content')
-<div class="container ">
-    <h1>Bienvenido</h1>
-    <p>contenido</p>
-    <p>contenido</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-    <p>contenido</p>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-
-
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
-    <p>contenido</p>
-
+                    You are logged in!
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

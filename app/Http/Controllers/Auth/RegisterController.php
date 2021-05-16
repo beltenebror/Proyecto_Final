@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Cliente;
+use App\Chofer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,6 +54,13 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'dni' => 'required|string|size:9',
+            'telefono' => 'required|string|min:6|max:15',
+            'comunidad' => 'required|string|min:5|max:100',
+            'provincia' => 'required|string|min:5|max:100',
+            'localidad' => 'required|string|min:5|max:100',
+            'rol'=>'required|digits_between:0,1',
+
         ]);
     }
 
@@ -63,10 +72,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'rol' => $data['rol'],
+            'dni' => $data['dni'],
+            'telefono' => $data['telefono'],
+            'comunidad' => $data['comunidad'],
+            'provincia' => $data['provincia'],
+            'localidad' => $data['localidad'],
         ]);
+
+        if($data['rol']==0)
+        {
+           $cliente = new Cliente();
+           $cliente->users_id=$user->id;
+           $cliente->save();
+        }
+        else{
+           $chofer = new chofer();
+           $chofer->users_id=$user->id;
+           $chofer->save();
+        }       
+        return $user;
+            
     }
 }

@@ -1,5 +1,5 @@
-<!DOCTYPE html >
-<html class="wide wow-animation" lang="es">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 {{-- Assets y metaetiquetas de cabecera --}}
 @include('layouts.head')
@@ -8,9 +8,9 @@
     <div class="page">
         {{-- Barra de navegación --}}
         @include('layouts.navbar')
+        
 
-        {{-- Mensajes flash --}}
-        {{-- @include('flash.todos') --}}
+        
 
         {{-- Contenido de la página --}}
         @yield('content')
@@ -22,4 +22,5 @@
         @include('layouts.footer_meta')
     </div>
 </body>
+
 </html>

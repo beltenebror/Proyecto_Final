@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('dni')->nullable();
             $table->string('telefono')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('rol')->nullable();
             $table->string('comunidad')->nullable();
@@ -27,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('poblacion')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp('email_verified_at')->nullable();
+
         });
     }
 
