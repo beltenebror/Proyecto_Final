@@ -13,4 +13,7 @@
 
 Route::get('/', 'IndexController@index')->name('home');
 
+Route::get('/viaje', 'ServicioController@index')->name('viaje');
+
+
 Auth::routes();

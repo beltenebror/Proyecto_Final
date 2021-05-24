@@ -14,9 +14,20 @@
                         <a class="nav-link {{ !Route::is('home') ?: 'active' }}" href="{{ route('home') }}">Home</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">link</a>
-                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link  {{ !Route::is('viaje') ?: 'active' }}"
+                                href="{{ route('viaje') }}">Viaje</a>
+                        </li>
+                    @else
+                        @if (auth()->user()->rol == 0)
+                            <li class="nav-item">
+                                <a class="nav-link  {{ !Route::is('viaje') ?: 'active' }}"
+                                    href="{{ route('viaje') }}">Viaje</a>
+                            </li>
+
+                        @endif
+                    @endguest
 
                     <li class="nav-item">
                         <a class="nav-link" href="#">link</a>
@@ -29,10 +40,12 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link {{ !Route::is('login') ?: 'active' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link {{ !Route::is('login') ?: 'active' }}"
+                                href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ !Route::is('register') ?: 'active' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link {{ !Route::is('register') ?: 'active' }}"
+                                href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
@@ -43,7 +56,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">
+                                                       document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
