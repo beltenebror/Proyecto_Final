@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'dni', 'rol', 'comunidad', 'provincia', 'localidad', 'telefono'
+        'name', 'image', 'email', 'password', 'dni', 'rol','municipios_id', 'telefono'
     ];
 
     /**
@@ -30,13 +30,14 @@ class User extends Authenticatable
 
     public function cliente()
     {
-        return $this->belongsTo('App\Cliente', 'users_id');
+        return $this->hasOne('App\Cliente', 'clientes_id','id');
     }
 
     public function chofer()
     {
-        return $this->belongsTo('App\Chofer', 'users_id');
+        return $this->hasOne('App\Chofer',  'chofers_id','id');
     }
+    
 
     
   

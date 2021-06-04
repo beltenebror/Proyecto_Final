@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Cliente;
 use App\Chofer;
+use App\Municipios;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +43,11 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    protected function showRegistrationForm()
+    {
+        $municipios = Municipios::all();
+        return view('auth.register',['municipios' => $municipios]);    
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -56,9 +63,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'dni' => 'required|string|size:9',
             'telefono' => 'required|string|min:6|max:15',
-            'comunidad' => 'required|string|min:5|max:100',
-            'provincia' => 'required|string|min:5|max:100',
-            'localidad' => 'required|string|min:5|max:100',
+            'municipios_id' => 'required|integer',
             'rol'=>'required|digits_between:0,1',
 
         ]);
@@ -74,28 +79,34 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'name' => $data['name'],
+            'image' => 'perfil/default.png',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'rol' => $data['rol'],
             'dni' => $data['dni'],
             'telefono' => $data['telefono'],
-            'comunidad' => $data['comunidad'],
-            'provincia' => $data['provincia'],
-            'localidad' => $data['localidad'],
+            'municipios_id' => $data['municipios_id'],
+
         ]);
 
         if($data['rol']==0)
         {
            $cliente = new Cliente();
-           $cliente->users_id=$user->id;
+           $cliente->clientes_id=$user->id;
            $cliente->save();
         }
         else{
            $chofer = new chofer();
-           $chofer->users_id=$user->id;
+           $chofer->chofers_id=$user->id;
+           $chofer->zona=$data['zona'];
+
            $chofer->save();
         }       
         return $user;
             
     }
+
+
+
+
 }

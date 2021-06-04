@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    protected $table='clients';
+    protected $table='clientes';
 
     protected $fillable = [
-        'user_id',
+        'clientes_id','anonimo'
     ];
 
     public $timestamps = false;
 
+    protected $primaryKey = 'clientes_id';
+
     public function user()
     {
-        return $this->hasOne('App\user', 'id', 'users_id');
+        return $this->hasOne('App\user', 'id', 'clientes_id');
     }
     
 }

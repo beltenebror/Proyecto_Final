@@ -11,9 +11,30 @@
 |
 */
 
+
+////////////////////    Inicio    ///////////////////
+
 Route::get('/', 'IndexController@index')->name('home');
 
-Route::get('/viaje', 'ServicioController@index')->name('viaje');
+
+
+////////////////////    Usuarios    ///////////////////
 
 
 Auth::routes();
+Route::get('/perfil', 'UpdateController@index')->name('perfil')->middleware('auth');
+Route::post('/perfil/actualizar-cliente/', 'UpdateController@updateCliente')->name('actualizar-cliente')->middleware('auth');
+Route::post('/perfil/actualizar-chofer/', 'UpdateController@updateChofer')->name('actualizar-chofer')->middleware('auth');
+Route::post('/perfil/borrar', 'UpdateController@destroy')->name('perfil-borrar')->middleware('auth');
+
+
+
+
+////////////////////    Viajes    ///////////////////
+
+Route::get('/viaje', 'ServicioController@index')->name('viaje');
+Route::get('/viaje/solicitar', 'ServicioController@create')->name('pedir-viaje')->middleware('auth');
+Route::post('/viaje/solicitar', 'ServicioController@store')->name('crear-viaje')->middleware('auth');
+
+
+

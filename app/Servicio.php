@@ -8,5 +8,6 @@ class Servicio extends Model
 {
     //
     protected $table='servicios';
+    protected $guarded = ['id'];
 
 }

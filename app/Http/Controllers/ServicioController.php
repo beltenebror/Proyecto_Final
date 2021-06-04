@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Servicio;
 use Illuminate\Http\Request;
+use App\Municipios;
+use App\Chofer;
 
 class ServicioController extends Controller
 {
@@ -12,6 +14,8 @@ class ServicioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $redirectTo = '/';
+
     public function index()
     {
         return view('viaje.index');
@@ -25,7 +29,9 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        //
+        $this->middleware('auth');
+        $municipios = Municipios::all();
+        return view('viaje.solicitar',['municipios' => $municipios]);
     }
 
     /**
@@ -36,7 +42,12 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //tengo que meter valoraciones
+        $servicio = Servicio::create($request->except("_token"));
+        $servicio->save();
+        // hay que meter codigo para seleccioanr solo los chofer que puedan trabajar en esa localidad
+        $chofers = Chofer::all();
+        return view("viaje.chofer",['chofers' => $chofers]);
     }
 
     /**

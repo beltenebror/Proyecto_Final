@@ -9,13 +9,13 @@ class Chofer extends Model
     protected $table='chofers';
 
     protected $fillable = [
-        'user_id','zona',
+        'chofers_id','zona','precio_kilometro','precio_hora'
     ];
 
     public $timestamps = false;
 
     public function user()
     {
-        return $this->hasOne('App\user', 'id', 'users_id');
+        return $this->hasOne('App\user', 'id', 'chofers_id');
     }
 }

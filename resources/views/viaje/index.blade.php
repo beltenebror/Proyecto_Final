@@ -28,7 +28,7 @@
                         @if (auth()->user()->rol == 0)
                             <!--vista para cliente-->
 
-                            <h2> <a href="#">Solicita tu viaje!</a></h2>
+                            <h2> <a href="{{ route('pedir-viaje')}}">Solicita tu viaje!</a></h2>
 
                         @endif
 
