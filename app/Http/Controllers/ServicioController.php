@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Servicio;
 use Illuminate\Http\Request;
 use App\Municipios;
 use App\Chofer;
+use Illuminate\Support\Facades\Auth;
+
 
 class ServicioController extends Controller
 {
@@ -42,14 +45,51 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'tipo' => 'required|digits_between:0,1',
+            'hora_contratada' => 'required|date_format:H:i',
+            'fecha_contratada' => 'required|date_format:Y-m-d',
+            'direccion_inicio_exacta' => 'required|string|min:6|max:255',
+            'municipios_id_inicio' => 'required|integer',
+            'direccion_fin_exacta' => 'required_if:tipo,==,0|string|min:6|max:255',
+            'kilometraje' => 'required_if:tipo,==,0|integer|min:1|max:4000',
+            'horas' => 'required_if:tipo,==,1|integer|min:0|max:12',
+            'minutos' => 'required_if:tipo,==,1|integer|min:0|max:59',
+            'municipios_id_fin' => 'required_if:tipo,==,0|integer',
+
+        ]);
+        if($request->tipo==1)
+        {
+            $request['horas_alquiler']=$request->horas+$request->minutos/60;
+            $arrayChofersId = DB::select("CALL chofers_disponibles_hora('$request->fecha_contratada', '$request->hora_contratada', '$request->municipios_id_inicio');");
+
+        }
+        else{
+            $arrayChofersId = DB::select("CALL chofers_disponibles_kilometros('$request->fecha_contratada', '$request->hora_contratada', '$request->municipios_id_inicio');");
+
+        }
+        $choferIds = collect();
+        foreach($arrayChofersId as $choferTemporalId)
+        {
+            $choferIds->push($choferTemporalId->chofers_id);
+        }
+        $chofers = chofer::findorfail($choferIds);
+        
+        $request['clientes_clientes_id']=Auth::user()->id;
+        
         //tengo que meter valoraciones
-        $servicio = Servicio::create($request->except("_token"));
+        $servicio = Servicio::create($request->except("_token","horas","minutos"));
         $servicio->save();
         // hay que meter codigo para seleccioanr solo los chofer que puedan trabajar en esa localidad
-        $chofers = Chofer::all();
-        return view("viaje.chofer",['chofers' => $chofers]);
+        
+
+        return view("viaje.chofer",['chofers' => $chofers, 'servicio' => $servicio]);
     }
 
+    public function chofer($chofer)
+    {
+        return "correcto";
+    }
     /**
      * Display the specified resource.
      *

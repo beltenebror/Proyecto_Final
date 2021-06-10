@@ -14,6 +14,8 @@ class Chofer extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'chofers_id';
+
     public function user()
     {
         return $this->hasOne('App\user', 'id', 'chofers_id');

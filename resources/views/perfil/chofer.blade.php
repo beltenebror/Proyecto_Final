@@ -4,8 +4,8 @@
 
     <div class="container ">
 
-        <form class="form container  mt-4 pt-4" action="{{ route('actualizar-chofer') }}" method="post"
-            id="updateProfile" enctype="multipart/form-data">
+        <form class="form container  mt-4 pt-4" action="{{ route('actualizar-chofer') }}" method="post" id="updateProfile"
+            enctype="multipart/form-data">
             @csrf
             <div class="row text-center">
                 <div class="col-sm-12">
@@ -67,15 +67,64 @@
                             <label for="telefono">
                                 <h4>Telefono</h4>
                             </label>
-                           
+
                             <div>
-                                <input type="text" class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}" name="telefono" id="telefono"
-                                value="{{ $user->telefono }}">
+                                <input type="text"
+                                    class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}"
+                                    name="telefono" id="telefono" value="{{ $user->telefono }}">
                                 @if ($errors->has('telefono'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('telefono') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                         
+                        <div class="col-sm-6">
+                            <label for="precio_kilometro">
+                                <h4>Precio por kilometro</h4>
+                            </label>
+
+                            <div>
+                                <input type="number" min="0" step=".01"
+                                    class="form-control{{ $errors->has('precio_kilometro') ? ' is-invalid' : '' }}"
+                                    name="precio_kilometro" id="precio_kilometro" value="{{ $user->chofer->precio_kilometro }}">
+                                @if ($errors->has('precio_kilometro'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('precio_kilometro') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="precio_hora">
+                                <h4>Precio por hora</h4>
+                            </label>
+
+                            <div>
+                                <input type="number" min="0" step=".50"
+                                    class="form-control{{ $errors->has('precio_hora') ? ' is-invalid' : '' }}"
+                                    name="precio_hora" id="precio_hora" value="{{ $user->chofer->precio_hora }}">
+                                @if ($errors->has('precio_hora'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('precio_hora') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        
+                        <div  class="col-sm-6 offset-sm-3 ">
+                            <label><h4>{{ __('Zona de trabajo') }}</h4></label>
+                            <div> <select name="zona" id="zona"
+                                    class="form-control{{ $errors->has('zona') ? ' is-invalid' : '' }}">
+                                    <option @if ($user->chofer->zona==1) selected @endif value="1">Solo mi provincia</option>
+                                    <option @if ($user->chofer->zona==2) selected @endif value="2">Solo mi comunidad</option>
+                                    <option @if ($user->chofer->zona==3) selected @endif value="3">Toda españa</option>
+                                </select>
+                                @if ($errors->has('zona')) <span class="invalid-feedback"
+                                        role="alert"> <strong>{{ $errors->first('zona') }}</strong> </span> @endif
                             </div>
                         </div>
                     </div>

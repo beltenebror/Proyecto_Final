@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\User;
 use App\Cliente;
+use App\Chofer;
+
 
 use App\Municipios;
 use Illuminate\Http\Request;
@@ -95,6 +98,10 @@ class UpdateController extends Controller
             'image' => 'mimes:jpg,png,bmp,jpeg|max:5000',
             'telefono' => 'required|string|min:9|max:13',
             'municipios_id' => 'required|integer',
+            'precio_kilometro' => 'required|numeric',
+            'precio_hora' => 'required|numeric',
+            'zona' => 'required|digits_between:1,2,3',
+
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -114,6 +121,11 @@ class UpdateController extends Controller
 
             $user->image=$path;
         }
+        $chofer = Chofer::findOrFail($user->id);
+        $chofer->precio_kilometro = $request->precio_kilometro;
+        $chofer->precio_hora = $request->precio_hora;
+        $chofer->zona = $request->zona;
+        $chofer->save();
 
 
         $user->save();
@@ -129,6 +141,15 @@ class UpdateController extends Controller
      */
     public function destroy()
     {
-        return "borrando " . Auth::user()->name ;
+        $user = User::find(auth()->id());
+
+        //borro la imagen anterior si no es la que se asigna por defecto
+        if($user->avatar!='users/default.png'){
+            Storage::delete('public/'.$user->image);
+            }
+
+        $user->delete();
+
+        return redirect(route('home'));
     }
 }

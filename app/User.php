@@ -30,12 +30,12 @@ class User extends Authenticatable
 
     public function cliente()
     {
-        return $this->hasOne('App\Cliente', 'clientes_id','id');
+        return $this->hasOne('App\Cliente', 'clientes_id' , 'id');
     }
 
     public function chofer()
     {
-        return $this->hasOne('App\Chofer',  'chofers_id','id');
+        return $this->hasOne('App\Chofer',  'chofers_id' , 'id');
     }
     
 

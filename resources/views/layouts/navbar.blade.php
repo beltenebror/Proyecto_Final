@@ -51,19 +51,19 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img class="" src="{{ asset('storage/' . Auth::user()->image) }}" alt="image"
+                                <img class="rounded-circle" src="{{ asset('storage/' . Auth::user()->image) }}" alt="image"
                             style="height:30px; width:30px; object-fit: cover;">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                &nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('perfil') }}">
-                                    {{ __('Perfil') }}
+                                    {{ __('general.Perfil') }}
                                 </a> 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                        document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('general.Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
