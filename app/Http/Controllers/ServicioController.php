@@ -58,16 +58,36 @@ class ServicioController extends Controller
             'municipios_id_fin' => 'required_if:tipo,==,0|integer',
 
         ]);
+
         if($request->tipo==1)
         {
-            $request['horas_alquiler']=$request->horas+$request->minutos/60;
             $arrayChofersId = DB::select("CALL chofers_disponibles_hora('$request->fecha_contratada', '$request->hora_contratada', '$request->municipios_id_inicio');");
 
         }
-        else{
-            $arrayChofersId = DB::select("CALL chofers_disponibles_kilometros('$request->fecha_contratada', '$request->hora_contratada', '$request->municipios_id_inicio');");
+        
+        $request['clientes_clientes_id']=Auth::user()->id;
+        
+        //tengo que meter valoraciones
+        $servicio = Servicio::create($request->except("_token","horas","minutos"));
+        $servicio->save();
+        
+        return redirect()->route("chofers-disponibles",['servicioId' => $servicio->id]);
+
+    }
+
+    public function elegirChofer($servicioId)
+    {
+        $servicio = Servicio::find($servicioId);
+        if($servicio->tipo==1)
+        {
+            $arrayChofersId = DB::select("CALL chofers_disponibles_hora('$servicio->fecha_contratada', '$servicio->hora_contratada', '$servicio->municipios_id_inicio');");
 
         }
+        else{
+            $arrayChofersId = DB::select("CALL chofers_disponibles_kilometros('$servicio->fecha_contratada', '$servicio->hora_contratada', '$servicio->municipios_id_inicio');");
+
+        }
+        
         $choferIds = collect();
         foreach($arrayChofersId as $choferTemporalId)
         {
@@ -75,18 +95,11 @@ class ServicioController extends Controller
         }
         $chofers = chofer::findorfail($choferIds);
         
-        $request['clientes_clientes_id']=Auth::user()->id;
-        
-        //tengo que meter valoraciones
-        $servicio = Servicio::create($request->except("_token","horas","minutos"));
-        $servicio->save();
-        // hay que meter codigo para seleccioanr solo los chofer que puedan trabajar en esa localidad
-        
-
         return view("viaje.chofer",['chofers' => $chofers, 'servicio' => $servicio]);
     }
 
-    public function chofer($chofer)
+
+    public function chofer($servicioId, $choferId)
     {
         return "correcto";
     }

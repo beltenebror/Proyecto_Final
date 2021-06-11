@@ -36,11 +36,12 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>Modal body text goes here.</p>
+                          <p>aqui aparecerán los datos del chofer</p>
                         </div>
                         
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-primary">Seleccionar este chofer</button>
+                          <a href="{{route("seleccionar-chofer",['choferId'=> $chofer->chofers_id , 
+                            'servicioId'=>$servicio->id])}}" type="button" class="btn btn-primary">Seleccionar este chofer</a>
                         </div>
                       </div>
                     </div>
