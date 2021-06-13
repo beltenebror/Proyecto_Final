@@ -6,7 +6,7 @@
         <h2 class="center">Seleccione el chofer para su viaje:</h2>
             <div class="row">
                 @foreach ($chofers as $chofer)
-                <button data-toggle="modal" data-target="#exampleModal" style="border: none; background-color:white;">
+                <button data-toggle="modal" data-target="#modal-chofer-{{$chofer->chofers_id}}" style="border: none; background-color:white;">
                     <div class="card m-2" style="width: 16rem;">
                         <img class="card-img-top" src="{{ asset('storage/' . $chofer->user->image) }}"
                             alt="Card image cap" style="height:160px; object-fit: cover;">
@@ -26,7 +26,7 @@
                     </div>
                   </button>
                                     <!--modal-->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="modal-chofer-{{$chofer->chofers_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -46,7 +46,7 @@
                       </div>
                     </div>
                   </div>
-                                    <!--modal-->
+                                    <!--Fin-->
 
                 
                 @endforeach

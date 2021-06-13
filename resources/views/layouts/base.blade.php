@@ -8,7 +8,8 @@
     <div class="page">
         {{-- Barra de navegación --}}
         @include('layouts.navbar')
-        
+
+        @include('flash-message')
 
         
 

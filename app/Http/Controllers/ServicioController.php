@@ -61,9 +61,11 @@ class ServicioController extends Controller
 
         if($request->tipo==1)
         {
-            $arrayChofersId = DB::select("CALL chofers_disponibles_hora('$request->fecha_contratada', '$request->hora_contratada', '$request->municipios_id_inicio');");
+            $request['horas_alquiler']=$request->horas+$request->minutos/60;
 
         }
+        
+       
         
         $request['clientes_clientes_id']=Auth::user()->id;
         
@@ -101,7 +103,19 @@ class ServicioController extends Controller
 
     public function chofer($servicioId, $choferId)
     {
-        return "correcto";
+        $servicio = Servicio::find($servicioId);
+        $chofer = Chofer::find($choferId);
+
+        if($servicio->tipo==1)
+        {
+            $servicio->precio = $chofer->precio_hora *  $servicio->horas_alquiler;
+        }
+        else{
+            $servicio->precio = $chofer->precio_kilometro * $servicio->kilometraje;
+        }
+        $servicio->chofers_chofers_id = $chofer->chofers_id;
+        $servicio->save();
+        return redirect()->route("pagar-viaje",['servicioId' => $servicio->id]);
     }
     /**
      * Display the specified resource.
