@@ -31,9 +31,13 @@
                             class="col-md-4 col-form-label text-md-right">{{ __('Fecha') }}</label>
 
                         <div class="col-md-8">
+                            @php
+                                $fecha = date("Y-m-d", strtotime('tomorrow'))
+                            @endphp
+
                             <input id="fecha_contratada" type="date"
                                 class="form-control{{ $errors->has('fecha_contratada') ? ' is-invalid' : '' }}"
-                                name="fecha_contratada" value="{{ old('fecha_contratada') }}" required autofocus>
+                                name="fecha_contratada" min="{{date("Y-m-d", strtotime($fecha))}}" value="{{ old('fecha_contratada') }}" required autofocus>
 
                             @if ($errors->has('fecha_contratada'))
                                 <span class="invalid-feedback" role="alert">

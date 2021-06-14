@@ -35,6 +35,7 @@ Route::get('/viaje/solicitar', 'ServicioController@create')->name('pedir-viaje')
 Route::post('/viaje/solicitar', 'ServicioController@store')->name('crear-viaje')->middleware('auth');
 Route::get('/viaje/solicitar/chofer/{servicioId}', 'ServicioController@elegirChofer')->name('chofers-disponibles')->middleware('auth');
 Route::get('/viaje/solicitar/chofer/{ServicioId}/{choferId}', 'ServicioController@chofer')->name('seleccionar-chofer')->middleware('auth');
+Route::get('/mis-viajes', 'ServicioController@verViajes')->name('ver-viajes')->middleware('auth');
 
 
 

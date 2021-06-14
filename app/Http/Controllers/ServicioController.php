@@ -43,6 +43,11 @@ class ServicioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function verViajes()
+    {
+        return "vista viajes";
+    }
     public function store(Request $request)
     {
         $this->validate($request, [

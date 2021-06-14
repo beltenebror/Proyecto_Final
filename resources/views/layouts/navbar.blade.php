@@ -25,7 +25,16 @@
                                 <a class="nav-link  {{ !Route::is('viaje') ?: 'active' }}"
                                     href="{{ route('viaje') }}">Viaje</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link  {{ !Route::is('ver-viajes') ?: 'active' }}"
+                                    href="{{ route('ver-viajes') }}">Mis viajes</a>
+                            </li>
+                        @else
 
+                            <li class="nav-item">
+                                <a class="nav-link  {{ !Route::is('ver-viajes') ?: 'active' }}"
+                                    href="{{ route('ver-viajes') }}">Mis viajes</a>
+                            </li>
                         @endif
                     @endguest
 
@@ -35,7 +44,7 @@
 
                 </ul>
 
-
+                
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
@@ -51,8 +60,8 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img class="rounded-circle" src="{{ asset('storage/' . Auth::user()->image) }}" alt="image"
-                            style="height:30px; width:30px; object-fit: cover;">
+                                <img class="rounded-circle" src="{{ asset('storage/' . Auth::user()->image) }}"
+                                    alt="image" style="height:30px; width:30px; object-fit: cover;">
                                 &nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -60,9 +69,9 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('perfil') }}">
                                     {{ __('general.Perfil') }}
-                                </a> 
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                       document.getElementById('logout-form').submit();">
+                                                           document.getElementById('logout-form').submit();">
                                     {{ __('general.Logout') }}
                                 </a>
 

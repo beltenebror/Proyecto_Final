@@ -14,11 +14,17 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use App\Servicio;
 use \PayPal\Exception\PayPalConnectionException;
+use Illuminate\Support\Facades\Mail;
+use App\Chofer;
+use App\Mail\NuevoViajeConductor;
+
+
 
 
 class PaymentController extends Controller
 {
     private $apiContext;
+
     public function __construct(){
 
         $payPalConfig = Config::get('paypal');
@@ -30,6 +36,8 @@ class PaymentController extends Controller
             )
     );
     }
+
+
 
     public function pagarViaje($servicioId){
 
@@ -72,6 +80,10 @@ class PaymentController extends Controller
         }
 
     }
+
+
+
+
     public function pagoRetrun(Request $request, $servicioId){
         $paymentId = $request->paymentId;
         $payerId = $request->PayerID;
@@ -91,19 +103,29 @@ class PaymentController extends Controller
         $result = $payment->execute($execution, $this->apiContext);
 
         if ($result->getState() === 'approved') {
-            //pago aprobado
-            return "pago exitoso";
-            $status = 'Gracias! El pago a través de PayPal se ha ralizado correctamente.';
-            return redirect('/results')->with(compact('status'));
-        }
+            //pago aprobado edito el servicio
+            $servicio = Servicio::find($servicioId);
+            $servicio->pagado  = 1;
+            $servicio->save();
+
+
+            //se envia un correo al conductor
+            $chofer = Chofer::find($servicio->chofers_chofers_id);
+            Mail::to($chofer->user->email)->send( new NuevoViajeConductor($servicio));
+
+            return redirect()->route('home')
+            ->with('success','Viaje creado con exito');
+            }
 
         //pago no se ha podido realizar
-        return "Ha ocurrido un fallo al realizar el apgo";
-        $status = 'Lo sentimos! El pago a través de PayPal no se pudo realizar.';
-        return redirect('/results')->with(compact('status'));
+        return redirect()->route('home')
+        ->with('error','Has ocurrido un problema con el pago, lo sentimos! :c');
 
         
     }
+
+
+    
     public function pagocancel(){
         
         return redirect()->route('home')
