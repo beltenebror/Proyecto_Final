@@ -82,6 +82,20 @@
                             </div>
                         </li>
                     @endguest
+                    <li class="nav-item">
+                    <a class="nav-link "
+                     href="{{ route('locale',['locale'=> 'es']) }}">
+                     <img class="rounded-circle" src="{{ asset('storage/lenguage/espana.svg') }}"
+                     alt="image" style="height:30px; width:30px; object-fit: cover;">
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                     href="{{ route('locale',['locale'=> 'en']) }}">
+                     <img class="rounded-circle" src="{{ asset('storage/lenguage/reino-unido.svg') }}"
+                     alt="image" style="height:30px; width:30px; object-fit: cover;">
+                    </a>
+                    </li>
                 </ul>
 
             </div>

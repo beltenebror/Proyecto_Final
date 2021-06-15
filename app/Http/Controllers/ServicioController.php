@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 use App\Municipios;
 use App\Chofer;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\ViajeFinalizadoAdmin;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClienteConfirma;
+use App\Mail\ChoferConfirma;
+
+
+
+
 
 
 class ServicioController extends Controller
@@ -44,9 +52,24 @@ class ServicioController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    
     public function verViajes()
     {
-        return "vista viajes";
+        if(auth()->user()->rol == 0)
+        {
+            $servicios = Servicio::where('clientes_clientes_id', auth()->user()->id)->orderby('fecha_contratada')->get();
+            $serviciosPasados = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '<', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosHoy = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '=', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosPorHacer = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '>', date("Y-m-d"))->orderby('fecha_contratada')->get();
+        }
+        else
+        {
+            $servicios = Servicio::where('chofers_chofers_id', auth()->user()->id)->orderby('fecha_contratada')->get();
+            $serviciosPasados = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '<', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosHoy = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '=', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosPorHacer = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '>', date("Y-m-d"))->orderby('fecha_contratada')->get();
+        }
+        return view("viaje.listado")->with(['serviciosPasados' => $serviciosPasados,'serviciosHoy' => $serviciosHoy,'serviciosPorHacer' => $serviciosPorHacer]);
     }
     public function store(Request $request)
     {
@@ -122,17 +145,44 @@ class ServicioController extends Controller
         $servicio->save();
         return redirect()->route("pagar-viaje",['servicioId' => $servicio->id]);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Servicio  $servicio
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Servicio $servicio)
-    {
-        //
-    }
 
+    public function confirmar($servicioId)
+    {
+        $servicio = Servicio::find($servicioId);
+
+        if(auth()->user()->rol == 0)
+        {
+            $servicio->confirmado_cliente= 1;
+            if($servicio->confirmado_chofer== 0)
+            {
+                //se envía un correo al chofer para que confirme el viaje
+                Mail::to($servicio->chofer->user->email)->send( new ClienteConfirma($servicio->id));
+
+            }
+            else
+            {
+                $servicio->finalizado = 1;
+                Mail::to('lasupercintia@gmail.com')->send( new ViajeFinalizadoAdmin($servicio->id));
+            }
+        }
+        else{
+            $servicio->confirmado_chofer= 1;
+            if($servicio->confirmado_cliente== 0)
+            {
+                //se envía un correo al cliente para que confirme el viaje
+                Mail::to($servicio->cliente->user->email)->send( new ChoferConfirma($servicio->id));
+
+            }
+            else
+            {
+                $servicio->finalizado = 1;
+                Mail::to('lasupercintia@gmail.com')->send( new ViajeFinalizadoAdmin($servicio->id));
+            }
+        }
+        $servicio->save();
+        return redirect()->route('ver-viajes')->with('success','Viaje confirmado');
+            
+    }
     /**
      * Show the form for editing the specified resource.
      *

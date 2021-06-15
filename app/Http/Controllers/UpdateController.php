@@ -85,7 +85,7 @@ class UpdateController extends Controller
 
         $user->save();
 
-    return redirect(route('perfil'));
+    return redirect(route('perfil'))->with('success','Usuario actualizado con éxito');
 
     }
     public function updateChofer(Request $request)
@@ -130,7 +130,7 @@ class UpdateController extends Controller
 
         $user->save();
 
-    return redirect(route('perfil'));
+    return redirect(route('perfil'))->with('success','Usuario actualizado con éxito');
     }
 
     /**

@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -36,6 +36,10 @@ class User extends Authenticatable
     public function chofer()
     {
         return $this->hasOne('App\Chofer',  'chofers_id' , 'id');
+    }
+    public function municipio()
+    {
+        return $this->hasOne('App\Municipios', 'id', 'municipios_id');
     }
     
 

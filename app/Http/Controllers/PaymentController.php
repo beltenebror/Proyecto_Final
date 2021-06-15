@@ -113,12 +113,12 @@ class PaymentController extends Controller
             $chofer = Chofer::find($servicio->chofers_chofers_id);
             Mail::to($chofer->user->email)->send( new NuevoViajeConductor($servicio));
 
-            return redirect()->route('home')
+            return redirect()->route('ver-viajes')
             ->with('success','Viaje creado con exito');
             }
 
         //pago no se ha podido realizar
-        return redirect()->route('home')
+        return redirect()->route('ver-viajes')
         ->with('error','Has ocurrido un problema con el pago, lo sentimos! :c');
 
         
@@ -128,7 +128,7 @@ class PaymentController extends Controller
     
     public function pagocancel(){
         
-        return redirect()->route('home')
+        return redirect()->route('ver-viajes')
         ->with('warning','Has cancelado el pago, esperamos que te decidas en otro momento :D');
     }
 
