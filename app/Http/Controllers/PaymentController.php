@@ -91,7 +91,8 @@ class PaymentController extends Controller
 
         if( !$payerId || !$paymentId || !$token) //si no existe alguno de estos es que el pago falló
         {
-            return "pago fallido";
+            return redirect()->route('ver-viajes')
+            ->with('error','Has ocurrido un problema con el pago, lo sentimos! :c');
         }
 
         $payment = Payment::get($paymentId, $this->apiContext);
@@ -125,7 +126,6 @@ class PaymentController extends Controller
     }
 
 
-    
     public function pagocancel(){
         
         return redirect()->route('ver-viajes')
