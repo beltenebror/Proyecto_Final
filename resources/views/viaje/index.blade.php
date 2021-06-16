@@ -9,18 +9,15 @@
         <div class=" justify-content-center">
             <div class="row">
                 <div class="col-md-6">
-                    <h1>Viaja con nosotros :</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid ut impedit cum debitis consectetur,
-                        atque ex adipisci eveniet labore optio eaque laborum sed non quos odio beatae doloribus ratione
-                        dolor.</p>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat sapiente officiis in totam
-                        corporis aut expedita ad numquam cupiditate, dicta, fuga, itaque tempora impedit dolor
-                        exercitationem esse quo sed eius!</p>
+                    <h1 class="mt-4">{{__('general.Viaja con nosotros :')}}</h1>
+                    <p>{{__('general.viaje1')}}</p>
+                    <p class="mb-4">{{__('general.viaje2')}}</p>
                     @guest
                         <!--vista para invitado-->
 
-                        <h2>¡No pierdas tu tiempo, registrate!</h2>
-                        <a href="{{ route("register")}}">Quiero mi viaje</a>
+                        <h2>{{__('general.¡Si quieres tu viaje no pierdas el tiempo, registrate!')}}</h2>
+                        <h2><a href="{{ route("register")}}">{{__('Register')}}</a></h2>
+                        
 
 
                     @else
@@ -28,7 +25,7 @@
                         @if (auth()->user()->rol == 0)
                             <!--vista para cliente-->
 
-                            <h2> <a href="{{ route('pedir-viaje')}}">Solicita tu viaje!</a></h2>
+                            <h2> <a href="{{ route('pedir-viaje')}}">{{__('general.Solicita tu viaje!')}}</a></h2>
 
                         @endif
 

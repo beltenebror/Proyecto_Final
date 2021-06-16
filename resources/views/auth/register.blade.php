@@ -8,13 +8,13 @@
     <div class="container col-md-8 mt-4">
 
         <h1 class="text-center my-4">{{ __('Register') }}</h1>
-        <p class="text-center">¿Cómo quieres formar parte?</p>
+        <p class="text-center">{{__('general.¿Cómo quieres formar parte?')}}</p>
 
         <div class="form-group row">
-            <button data-rol="0" class="col-sm-4 offset-sm-2 rol">Cliente</button>
-            <button data-rol="1" class="col-sm-4  rol">Conductor</button>
+            <button data-rol="0" class="col-sm-4 offset-sm-2 rol">{{__('general.Cliente')}}</button>
+            <button data-rol="1" class="col-sm-4  rol">{{__('general.Chofer')}}</button>
         </div>
-        <p class="text-center text-danger" id="mensajeRol">¡Elige tu tipo de registro!</p>
+        <p class="text-center text-danger" id="mensajeRol">{{__('general.¡Elige tu tipo de registro!')}}</p>
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
+                <label for="telefono" class="col-md-4 col-form-label text-md-right">{{ __('general.Teléfono') }}</label>
 
                 <div class="col-md-6">
                     <input id="telefono" type="telefono"
@@ -82,7 +82,7 @@
             </div>
             
             <div class="form-group row" id="selectlocal" >
-                <label for="municipios_id" class="col-md-4 col-form-label text-md-right">{{ __('Municipio') }}</label>
+                <label for="municipios_id" class="col-md-4 col-form-label text-md-right">{{ __('general.Municipio') }}</label>
         
                         <div class="col-md-6">
                             <select name="municipios_id" id="municipios_id" class="form-control{{ $errors->has('municipios_id') ? ' is-invalid' : '' }}">
@@ -147,7 +147,7 @@
             $(input_rol).val(input_rol_value);
 
             $("#selectzona").remove();
-            let soloConductor ='<div id="selectzona" class="form-group row"><label for="zona" class="col-md-4 col-form-label text-md-right">{{ __("Zona") }}</label> <div class="col-md-6"> <select name="zona" id="zona" class="form-control{{ $errors->has("zona") ? " is-invalid" : "" }}"> <option value="1">Solo mi provincia</option>    <option value="2">Solo mi comunidad</option> <option value="3">Toda españa</option></select> @if ($errors->has("zona")) <span class="invalid-feedback" role="alert"> <strong>{{ $errors->first("zona") }}</strong> </span> @endif</div> </div>'
+            let soloConductor ='<div id="selectzona" class="form-group row"><label for="zona" class="col-md-4 col-form-label text-md-right">{{ __("general.Zona de trabajo") }}</label> <div class="col-md-6"> <select name="zona" id="zona" class="form-control{{ $errors->has("zona") ? " is-invalid" : "" }}"> <option value="1">{{__("general.Solo mi provincia")}}</option>    <option value="2">{{__("general.Solo mi comunidad")}}</option> <option value="3">{{__("general.Toda españa")}}</option></select> @if ($errors->has("zona")) <span class="invalid-feedback" role="alert"> <strong>{{ $errors->first("zona") }}</strong> </span> @endif</div> </div>'
             
             if (input_rol_value == 0) {
                 $('#mensajeRol').replaceWith("<h3 class='text-center border-bottom mb-4' id='mensajeRol'>Registro como cliente</h3>");

@@ -57,14 +57,12 @@ class ServicioController extends Controller
     {
         if(auth()->user()->rol == 0)
         {
-            $servicios = Servicio::where('clientes_clientes_id', auth()->user()->id)->orderby('fecha_contratada')->get();
-            $serviciosPasados = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '<', date("Y-m-d"))->orderby('fecha_contratada')->get();
-            $serviciosHoy = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '=', date("Y-m-d"))->orderby('fecha_contratada')->get();
-            $serviciosPorHacer = Servicio::where('clientes_clientes_id', auth()->user()->id)->where('fecha_contratada', '>', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosPasados = Servicio::where('clientes_clientes_id', auth()->user()->id)->whereNotNull('chofers_chofers_id')->where('fecha_contratada', '<', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosHoy = Servicio::where('clientes_clientes_id', auth()->user()->id)->whereNotNull('chofers_chofers_id')->where('fecha_contratada', '=', date("Y-m-d"))->orderby('fecha_contratada')->get();
+            $serviciosPorHacer = Servicio::where('clientes_clientes_id', auth()->user()->id)->whereNotNull('chofers_chofers_id')->where('fecha_contratada', '>', date("Y-m-d"))->orderby('fecha_contratada')->get();
         }
         else
         {
-            $servicios = Servicio::where('chofers_chofers_id', auth()->user()->id)->orderby('fecha_contratada')->get();
             $serviciosPasados = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '<', date("Y-m-d"))->orderby('fecha_contratada')->get();
             $serviciosHoy = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '=', date("Y-m-d"))->orderby('fecha_contratada')->get();
             $serviciosPorHacer = Servicio::where('chofers_chofers_id', auth()->user()->id)->where('fecha_contratada', '>', date("Y-m-d"))->orderby('fecha_contratada')->get();

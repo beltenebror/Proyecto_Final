@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @if (isset($chofers[0]))
-        <h2 class="center">Seleccione el chofer para su viaje:</h2>
+        <h2 class="center">{{__('general.Seleccione el chofer para su viaje:')}}</h2>
             <div class="row">
                 @foreach ($chofers as $chofer)
                 <button data-toggle="modal" data-target="#modal-chofer-{{$chofer->chofers_id}}" style="border: none; background-color:white;">
@@ -36,12 +36,12 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p>aqui aparecerán los datos del chofer</p>
+                          <p>{{__('general.¿Desea seleccionar este chofer?')}}</p>
                         </div>
                         
                         <div class="modal-footer">
                           <a href="{{route("seleccionar-chofer",['choferId'=> $chofer->chofers_id , 
-                            'servicioId'=>$servicio->id])}}" type="button" class="btn btn-primary">Seleccionar este chofer</a>
+                            'servicioId'=>$servicio->id])}}" type="button" class="btn btn-primary">{{__('general.Seleccionar este chofer')}}</a>
                         </div>
                       </div>
                     </div>
@@ -52,7 +52,7 @@
                 @endforeach
             </div>
         @else
-            <p>No tenemos chofers para este servicio actualemnte. ¡Sentimos las molestias!</p>
+            <p>{{__('general.No tenemos chofers para este servicio actualemnte. ¡Sentimos las molestias!')}}</p>
         @endif
 
     </div>

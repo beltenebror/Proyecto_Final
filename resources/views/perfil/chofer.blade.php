@@ -22,7 +22,7 @@
                     <div class="form-group col-sm-12 row">
                         <div class="col-sm-6 ">
                             <label for="name">
-                                <h4>Nombre</h4>
+                                <h4>{{__('general.Nombre')}}</h4>
                             </label>
                             <div>
                                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
@@ -55,7 +55,7 @@
                     <div class="form-group col-sm-12 row">
                         <div class="col-sm-6 ">
                             <label for="municipios_id">
-                                <h4>Municipio de residencia</h4>
+                                <h4>{{__('general.Municipio de residencia')}}</h4>
                             </label>
                             <select class="form-control" name="municipios_id" id="municipios_id">
                                 @foreach ($municipios as $municipio)
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="telefono">
-                                <h4>Telefono</h4>
+                                <h4>{{__('general.Teléfono')}}</h4>
                             </label>
 
                             <div>
@@ -83,7 +83,7 @@
                          
                         <div class="col-sm-6">
                             <label for="precio_kilometro">
-                                <h4>Precio por kilometro</h4>
+                                <h4>{{__('general.Precio por kilometro')}}</h4>
                             </label>
 
                             <div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="precio_hora">
-                                <h4>Precio por hora</h4>
+                                <h4>{{__('general.Precio por hora')}}</h4>
                             </label>
 
                             <div>
@@ -116,12 +116,12 @@
 
                         
                         <div  class="col-sm-6 offset-sm-3 ">
-                            <label><h4>{{ __('Zona de trabajo') }}</h4></label>
+                            <label><h4>{{ __('general.Zona de trabajo') }}</h4></label>
                             <div> <select name="zona" id="zona"
                                     class="form-control{{ $errors->has('zona') ? ' is-invalid' : '' }}">
-                                    <option @if ($user->chofer->zona==1) selected @endif value="1">Solo mi provincia</option>
-                                    <option @if ($user->chofer->zona==2) selected @endif value="2">Solo mi comunidad</option>
-                                    <option @if ($user->chofer->zona==3) selected @endif value="3">Toda españa</option>
+                                    <option @if ($user->chofer->zona==1) selected @endif value="1">{{__('general.Solo mi provincia')}}</option>
+                                    <option @if ($user->chofer->zona==2) selected @endif value="2">{{__('general.Solo mi comunidad')}}</option>
+                                    <option @if ($user->chofer->zona==3) selected @endif value="3">{{__('general.Toda españa')}}</option>
                                 </select>
                                 @if ($errors->has('zona')) <span class="invalid-feedback"
                                         role="alert"> <strong>{{ $errors->first('zona') }}</strong> </span> @endif
@@ -133,10 +133,10 @@
                     <div class="form-group col-sm-12">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="form_batton" style="margin-top: 3em; margin-bottom: 3em;">
-                                <button type="submit" class="btn btn-primary" id="boton_actualizar_perfil">Actualizar
+                                <button type="submit" class="btn btn-primary" id="boton_actualizar_perfil">{{__('general.Actualizar')}}
                                 </button>
                                 <a href="#" class="btn btn-light" id="boton_eliminar_cuenta" data-toggle="modal"
-                                    data-target="#borrarCuentaModal">Eliminar</a>
+                                    data-target="#borrarCuentaModal">{{__('general.Eliminar')}}</a>
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" style="float: left;">Borrar cuenta</h5>
+                        <h5 class="modal-title" id="exampleModalLabel" style="float: left;">{{__('general.Borrar cuenta')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -162,19 +162,19 @@
 
                             @csrf
                             <h5 class="text-center">
-                                Estás a punto de eliminar tu cuenta
+                                {{__('general.Estás a punto de eliminar tu cuenta')}}
                             </h5>
                             <h5 class="text-center">
-                                ¿Deseas continuar?
+                                {{__('general.¿Deseas continuar?')}}
                             </h5>
 
                         </div>
                         <div class="modal-footer modal_button">
                             <button type="button" class="btn btn-light" id="modal_button_cancel" data-dismiss="modal"
-                                style="float:left;">Cancelar
+                                style="float:left;">{{__('general.Cancelar')}}
                             </button>
                             <button type="submit" class="btn btn-danger" id="modal_button_delete"
-                                style="float: right;">Continuar
+                                style="float: right;">{{__('general.Continuar')}}
                             </button>
                         </div>
                     </form>

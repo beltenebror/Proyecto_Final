@@ -11,36 +11,33 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link {{ !Route::is('home') ?: 'active' }}" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link {{ !Route::is('home') ?: 'active' }}" href="{{ route('home') }}">{{__('general.Home')}}</a>
                     </li>
 
                     @guest
                         <li class="nav-item">
                             <a class="nav-link  {{ !Route::is('viaje') ?: 'active' }}"
-                                href="{{ route('viaje') }}">Viaje</a>
+                                href="{{ route('viaje') }}">{{__('general.Viaje')}}</a>
                         </li>
                     @else
                         @if (auth()->user()->rol == 0)
                             <li class="nav-item">
                                 <a class="nav-link  {{ !Route::is('viaje') ?: 'active' }}"
-                                    href="{{ route('viaje') }}">Viaje</a>
+                                    href="{{ route('viaje') }}">{{__('general.Viaje')}}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link  {{ !Route::is('ver-viajes') ?: 'active' }}"
-                                    href="{{ route('ver-viajes') }}">Mis viajes</a>
+                                    href="{{ route('ver-viajes') }}">{{__('general.Mis viajes')}}</a>
                             </li>
                         @else
 
                             <li class="nav-item">
                                 <a class="nav-link  {{ !Route::is('ver-viajes') ?: 'active' }}"
-                                    href="{{ route('ver-viajes') }}">Mis viajes</a>
+                                    href="{{ route('ver-viajes') }}">{{__('general.Mis viajes')}}</a>
                             </li>
                         @endif
                     @endguest
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">link</a>
-                    </li>
 
                 </ul>
 
