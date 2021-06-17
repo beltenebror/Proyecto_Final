@@ -89,6 +89,9 @@ return [
     'parrafo2-1' => '¡Puedes registrarte desde ya!',
     'parrafo2-2' => 'Registrate poniendo tus propios precios y trabajando sólo donde quieras trabajar. Los clientes pueden mostrarse de forma anónima pero por la seguridad guardamos todos los datos.',
     'Home' => 'Inicio',
+    'Tiempo de servicio' => 'Tiempo de servicio',
+
+    
 
 
 

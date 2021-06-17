@@ -90,6 +90,8 @@ return [
     'parrafo2-2' => 'Register by setting your own prices and working only where you want to work. Clients can be displayed anonymously but for security we keep all data.',
     'Home' => 'Home',
     'mensaje' => 'traduccion funcionando',
+    'Tiempo de servicio' => 'Service time',
+
 
     
 
